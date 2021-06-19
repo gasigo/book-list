@@ -1,0 +1,6 @@
+targets:
+  ToggleUI:
+    templates:
+      - ModuleFramework
+    dependencies:
+      - target: ToggleFoundation

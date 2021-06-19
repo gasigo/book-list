@@ -1,0 +1,15 @@
+targets:
+  BookListTests:
+    type: bundle.unit-test
+    platform: iOS
+    settings:
+      base:
+        BUNDLE_LOADER: $(TEST_HOST)
+        TEST_HOST: $(BUILT_PRODUCTS_DIR)/BookList.app/BookList
+        PRODUCT_BUNDLE_IDENTIFIER: $(inherited).BookListTests
+    sources:
+      - path: .
+        excludes:
+          - target.yml
+    dependencies:
+      - target: BookList

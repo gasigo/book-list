@@ -1,0 +1,25 @@
+include:
+  - BookList/target.yml
+  - BookListTests/target.yml
+  - ToggleFoundation/target.yml
+  - ToggleUI/target.yml
+  - ToggleCore/target.yml
+name: BookList
+options:
+  usesTabs: true
+  bundleIdPrefix: com.bookList
+  deploymentTarget:
+    iOS: "13.0"
+
+targetTemplates:
+  ModuleFramework:
+    platform: iOS
+    type: framework
+    sources:
+      - path: ${target_name}
+        excludes:
+          - target.yml
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(inherited).${target_name}
+        CODE_SIGN_STYLE: Manual

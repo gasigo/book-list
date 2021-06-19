@@ -1,0 +1,12 @@
+targets:
+  BookList:
+    type: application
+    platform: iOS
+    sources:
+      - path: .
+        excludes:
+          - target.yml
+    dependencies:
+      - target: ToggleFoundation
+      - target: ToggleUI
+      - target: ToggleCore
