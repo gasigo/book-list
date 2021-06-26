@@ -31,4 +31,8 @@ final class DebugMenuRouter: AbstractRouter<DebugMenuComponent>, DebugMenuRoutin
 		window?.isHidden = true
 		window = nil
 	}
+
+	func test() {
+		
+	}
 }
