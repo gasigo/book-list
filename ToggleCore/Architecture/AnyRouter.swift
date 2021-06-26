@@ -7,7 +7,7 @@ public final class AnyRouter: AbstractRouter<Any> {
 	private let onStart: (AnyRouter) -> Void
 
 	public init(name: String = "Any", onStart: @escaping (AnyRouter) -> Void = { _ in }) {
-		self._name = name
+		_name = name
 		self.onStart = onStart
 		super.init(component: 0)
 	}
@@ -16,4 +16,3 @@ public final class AnyRouter: AbstractRouter<Any> {
 		onStart(self)
 	}
 }
-

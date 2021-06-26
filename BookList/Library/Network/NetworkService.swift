@@ -40,7 +40,6 @@ struct NetworkServiceImpl: NetworkService {
 
 			}.resume()
 		}
-
 	}
 
 	private func decode<T: Decodable>(data: Data, to type: T.Type) -> T? {
@@ -66,9 +65,11 @@ private extension CustomError {
 	static var requestFailed: CustomError {
 		CustomError(message: "Couldn't complete request")
 	}
+
 	static var unableToSerialize: CustomError {
 		CustomError(message: "Couldn't serialize server response")
 	}
+
 	static var invalidURL: CustomError {
 		CustomError(message: "The request URL provided was invalid")
 	}

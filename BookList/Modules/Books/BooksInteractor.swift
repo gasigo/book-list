@@ -8,8 +8,8 @@ final class BooksInteractor: Interactor {
 	private var books: [Book] = []
 
 	init(bookProvider: BookProvider) {
-		self._state = MutableProperty(value: State(isOnFirstPage: true, content: .loading))
-		self.state = _state
+		_state = MutableProperty(value: State(isOnFirstPage: true, content: .loading))
+		state = _state
 		self.bookProvider = bookProvider
 	}
 
@@ -44,7 +44,7 @@ final class BooksInteractor: Interactor {
 	}
 
 	private func setStateToLoading() {
-		let newState = State(isOnFirstPage: self.books.isEmpty, content: .loading)
+		let newState = State(isOnFirstPage: books.isEmpty, content: .loading)
 		_state.update(value: newState)
 	}
 
@@ -60,7 +60,7 @@ final class BooksInteractor: Interactor {
 	}
 
 	private func updateState(with error: Error) {
-		let newState = State(isOnFirstPage: self.books.isEmpty, content: .failed(error: error.toCustomError()))
+		let newState = State(isOnFirstPage: books.isEmpty, content: .failed(error: error.toCustomError()))
 		_state.update(value: newState)
 	}
 }

@@ -12,11 +12,12 @@ final class BooksViewController: UIViewController {
 	init(interactor: BooksInteractor, state: Property<BooksViewState>) {
 		self.interactor = interactor
 		self.state = state
-		self.tableView = UITableView(frame: .zero)
+		tableView = UITableView(frame: .zero)
 
 		super.init(nibName: nil, bundle: nil)
 	}
 
+	@available(*, unavailable)
 	required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
     override func viewDidLoad() {
@@ -179,6 +180,7 @@ private final class LoadingView: UIView {
 		stack.autoPinEdgesToSuperviewEdges()
 	}
 
+	@available(*, unavailable)
 	required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 
@@ -206,5 +208,6 @@ private final class ErrorView: UIView {
 		stack.autoPinEdgesToSuperviewEdges()
 	}
 
+	@available(*, unavailable)
 	required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }

@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		let window = ToggleWindow(windowScene: windowScene)
 		self.window = window
 		window.makeKeyAndVisible()
-		self.rootRouter = buildCompositionTree(window: window)
+		rootRouter = buildCompositionTree(window: window)
 		_ = rootRouter?.start()
 	}
 

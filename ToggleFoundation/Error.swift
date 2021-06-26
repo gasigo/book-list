@@ -23,6 +23,7 @@ public extension Error {
 	var title: String {
 		(self as? CustomError)?.title ?? defaultErrorTitle
 	}
+
 	var message: String {
 		(self as? CustomError)?.message ?? localizedDescription
 	}

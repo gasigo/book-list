@@ -134,9 +134,8 @@ public final class Promise<T> {
 	}
 }
 
-extension Promise where T == Any {
-
-	public static func merge<U>(_ promises: [Promise<U>]) -> Promise<[U]> {
+public extension Promise where T == Any {
+	static func merge<U>(_ promises: [Promise<U>]) -> Promise<[U]> {
 		guard !promises.isEmpty else {
 			return Promise<[U]>(value: [])
 		}
@@ -164,7 +163,7 @@ extension Promise where T == Any {
 		}
 	}
 
-	public static func zip<T, U>(_ promiseA: Promise<T>, _ promiseB: Promise<U>) -> Promise<(T, U)> {
+	static func zip<T, U>(_ promiseA: Promise<T>, _ promiseB: Promise<U>) -> Promise<(T, U)> {
 		Promise<(T, U)> { fulfill, reject in
 			var resolved = false
 			func resolve(_: Any) {
@@ -176,7 +175,7 @@ extension Promise where T == Any {
 				case let (.success(promiseA)?, .success(promiseB)?):
 					fulfill((promiseA, promiseB))
 					resolved = true
-				case let (.failure(error)?, _), let (_, .failure(error)?):
+				case let (_, .failure(error)?), let (.failure(error)?, _):
 					reject(error)
 					resolved = true
 				default:
@@ -188,13 +187,13 @@ extension Promise where T == Any {
 		}
 	}
 
-	public static func wait(_ interval: TimeInterval) -> Promise<Void> {
+	static func wait(_ interval: TimeInterval) -> Promise<Void> {
 		Promise<Void> { fulfill, _ in
 			DispatchQueue.main.asyncAfter(deadline: .now() + interval) { fulfill(()) }
 		}
 	}
 
-	public static func retry<Y>(
+	static func retry<Y>(
 		attempts: Int,
 		delay: TimeInterval = 0,
 		_ body: @escaping () -> Promise<Y>

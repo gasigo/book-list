@@ -18,7 +18,7 @@ final class LoginInteractor: Interactor {
 	private weak var router: LoginRouting?
 
 	init(loginProvider: LoginProvider, delegate: LoginDelegate?) {
-		self.state = State(availableBiometry: loginProvider.getAvailableBiometry())
+		state = State(availableBiometry: loginProvider.getAvailableBiometry())
 		self.loginProvider = loginProvider
 		self.delegate = delegate
 	}

@@ -8,7 +8,7 @@ final class DebugMenuRouter: AbstractRouter<DebugMenuComponent>, DebugMenuRoutin
 	private var window: UIWindow?
 
 	init(viewController: UIViewController, component: DebugMenuComponent) {
-		self.debugViewController = viewController
+		debugViewController = viewController
 		super.init(component: component)
 	}
 

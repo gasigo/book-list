@@ -1,5 +1,5 @@
-import UIKit
 import ToggleUI
+import UIKit
 
 final class LoginViewController: UIViewController {
 	private let interactor: LoginInteractor
@@ -11,6 +11,7 @@ final class LoginViewController: UIViewController {
 		super.init(nibName: nil, bundle: nil)
 	}
 
+	@available(*, unavailable)
 	required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
     override func viewDidLoad() {
@@ -62,7 +63,6 @@ final class LoginViewController: UIViewController {
 		equalSpacer1.autoMatch(.height, to: .height, of: equalSpacer2)
 		authenticationIcon.autoSetDimensions(to: CGSize(width: 64, height: 64))
 		stack.autoPinEdgesToSuperviewEdges(with: .horizontal(30) + .vertical(8))
-
 	}
 
 	private func makeAuthenticateButton() -> UIButton {

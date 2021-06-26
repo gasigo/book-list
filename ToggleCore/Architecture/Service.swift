@@ -28,7 +28,6 @@ open class Service {
 }
 
 open class ComponentService<Component>: Service {
-
 	public private(set) var component: Component?
 
 	public init(component: Component) {
@@ -42,7 +41,6 @@ open class ComponentService<Component>: Service {
 }
 
 private final class ExtensibleRouterStub: ExtensibleRouter {
-
 	var viewIfPresented: UIViewController? { nil }
 
 	func attach(child: Router, identifier: ChildIdentifier) {
@@ -66,4 +64,3 @@ private final class ExtensibleRouterStub: ExtensibleRouter {
 
 	func detach(child identifier: ChildIdentifier) {}
 }
-

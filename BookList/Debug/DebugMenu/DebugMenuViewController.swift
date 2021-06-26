@@ -4,11 +4,11 @@ final class DebugMenuViewController: UITableViewController {
 	private let interactor: DebugMenuInteractor
 
 	private lazy var items: [(title: String, action: () -> Void)] = {
-		return [
+		[
 			(
 				title: "🖨 Generate Composition Tree Diagram",
 				action: interactor.generateCompositionTreeDiagram
-			),
+			)
 		]
 	}()
 
@@ -22,6 +22,7 @@ final class DebugMenuViewController: UITableViewController {
 		}
 	}
 
+	@available(*, unavailable)
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
@@ -66,8 +67,8 @@ private final class TableViewCell: UITableViewCell {
 		textLabel?.numberOfLines = 0
 	}
 
+	@available(*, unavailable)
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 }
-

@@ -111,4 +111,3 @@ extension LoginInteractorTests {
 		XCTAssertEqual(routerSpy.routeToErrorCounter, 1)
 	}
 }
-

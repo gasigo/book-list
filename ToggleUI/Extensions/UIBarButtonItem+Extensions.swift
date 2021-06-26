@@ -21,4 +21,3 @@ public extension UIBarButtonItem {
 		image(UIImage(named: "close")!, target)
 	}
 }
-

@@ -12,6 +12,7 @@ final class BookCell: UITableViewCell {
 		content.autoPinEdgesToSuperviewEdges()
 	}
 
+	@available(*, unavailable)
 	required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
 	override func prepareForReuse() {
@@ -23,7 +24,6 @@ final class BookCell: UITableViewCell {
 		super.setSelected(selected, animated: animated)
 		content.setSelected(selected, animated: animated)
 	}
-
 
 	func update(with book: BooksViewState.BookCell) {
 		content.update(with: book, isSelected: isSelected)
@@ -66,6 +66,7 @@ private final class BookCellContentView: UIView {
 		contentView.autoPinEdgesToSuperviewEdges(with: .horizontal(18) + .vertical(8))
 	}
 
+	@available(*, unavailable)
 	required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
 	func reset() {
@@ -92,9 +93,9 @@ private final class BookCellContentView: UIView {
 		guard let book = book, book.canExpand else { return }
 
 		if !selected {
-			self.descriptionLabel.text = book.shortDescription
+			descriptionLabel.text = book.shortDescription
 		} else {
-			self.descriptionLabel.text = book.description
+			descriptionLabel.text = book.description
 		}
 	}
 }

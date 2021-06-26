@@ -1,5 +1,5 @@
 public class Property<T> {
-	fileprivate(set) public var value: T { didSet { observers.notify(of: value) } }
+	public fileprivate(set) var value: T { didSet { observers.notify(of: value) } }
 
 	private var observers = ObserverList<T>()
 
@@ -14,7 +14,7 @@ public class Property<T> {
 }
 
 public final class MutableProperty<T>: Property<T> {
-	override public init(value: T) {
+	public override init(value: T) {
 		super.init(value: value)
 	}
 
@@ -39,4 +39,3 @@ public extension Property {
 		}
 	}
 }
-

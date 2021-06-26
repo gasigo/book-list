@@ -1,7 +1,7 @@
 import ToggleUI
 import UIKit
 
-public  struct ModalPresentationContext: PresentationContext {
+public struct ModalPresentationContext: PresentationContext {
 	private let source: UIViewController
 
 	public init(source: UIViewController) {
@@ -86,4 +86,3 @@ private final class ModalDismissalProxy: NSObject, UIAdaptivePresentationControl
 		didDismissObserver?()
 	}
 }
-

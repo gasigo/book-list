@@ -75,7 +75,7 @@ final class DiagramParser {
 
 	func matches(for regex: String, in text: String) -> [String] {
 		do {
-			let textRange = NSRange(text.startIndex..<text.endIndex, in: text)
+			let textRange = NSRange(text.startIndex ..< text.endIndex, in: text)
 			let captureRegex = try NSRegularExpression(pattern: regex)
 			let matches = captureRegex.matches(in: text, options: [], range: textRange)
 
@@ -85,7 +85,7 @@ final class DiagramParser {
 
 			var groups: [String] = []
 
-			for rangeIndex in 0..<match.numberOfRanges {
+			for rangeIndex in 0 ..< match.numberOfRanges {
 				let matchRange = match.range(at: rangeIndex)
 
 				if matchRange == textRange { continue }
@@ -113,7 +113,7 @@ final class DiagramParser {
 		) {
 			for case let fileURL as URL in enumerator {
 				do {
-					let fileAttributes = try fileURL.resourceValues(forKeys:[.isRegularFileKey])
+					let fileAttributes = try fileURL.resourceValues(forKeys: [.isRegularFileKey])
 					if fileAttributes.isRegularFile! {
 						files.append(fileURL)
 					}

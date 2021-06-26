@@ -83,9 +83,11 @@ extension CustomError {
 	static var autheticationCanceled: CustomError {
 		CustomError(message: "Authentication attempted was cancelled")
 	}
+
 	fileprivate static var couldNotAuthenticate: CustomError {
 		CustomError(message: "It was not possible to authenticate")
 	}
+
 	fileprivate static var autheticationNotAvailable: CustomError {
 		CustomError(message: "Authentication is not available on this device")
 	}

@@ -5,12 +5,13 @@ public final class ErrorViewController: UIViewController {
 	private let errorMessage: String
 
 	public init(error: Error) {
-		self.errorTitle = error.title
-		self.errorMessage = error.message
+		errorTitle = error.title
+		errorMessage = error.message
 
 		super.init(nibName: nil, bundle: nil)
 	}
 
+	@available(*, unavailable)
 	required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
 	public override func viewDidLoad() {

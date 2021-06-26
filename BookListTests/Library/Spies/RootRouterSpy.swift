@@ -32,4 +32,3 @@ final class RootRouterSpy: RootRouting, Spy {
 		routeToErrorCapturedError = nil
 	}
 }
-

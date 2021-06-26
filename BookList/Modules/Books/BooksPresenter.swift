@@ -85,7 +85,7 @@ struct BooksPresenter {
 }
 
 extension BooksPresenter {
-	struct Copy {
+	enum Copy {
 		static var title: String { "Best Sellers" }
 		static var retry: String { "Retry" }
 		static var loadingMessage: String { "Loading best seller books" }

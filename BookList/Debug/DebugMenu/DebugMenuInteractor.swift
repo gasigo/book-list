@@ -15,8 +15,7 @@ final class DebugMenuInteractor: Interactor {
 		setupShakeListener()
 	}
 
-	func generateCompositionTreeDiagram() {
-	}
+	func generateCompositionTreeDiagram() {}
 
 	func close() {
 		router?.closeDebugMenu()

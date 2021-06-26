@@ -40,7 +40,7 @@ public extension Array where Element: NSLayoutConstraint {
 			switch constraint.firstAttribute {
 			case .top:
 				return constraint.inset(by: insets.top)
-			case .left, .leading:
+			case .leading, .left:
 				return constraint.inset(by: insets.left)
 			case .bottom:
 				return constraint.inset(by: insets.bottom)

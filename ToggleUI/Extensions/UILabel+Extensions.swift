@@ -9,7 +9,7 @@ public extension UILabel {
 	@discardableResult
 	func style(font: UIFont, color: UIColor) -> Self {
 		self.font = font
-		self.textColor = color
+		textColor = color
 		return self
 	}
 

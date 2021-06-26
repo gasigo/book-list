@@ -13,4 +13,3 @@ final class LoginRouterSpy: LoginRouting, Spy {
 		routeToErrorCapturedError = nil
 	}
 }
-

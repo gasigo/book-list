@@ -128,4 +128,3 @@ open class AbstractRouter<Component>: Router, ExtensibleRouter {
 private final class UnusedViewController: UIViewController {
 	static let shared = UnusedViewController()
 }
-

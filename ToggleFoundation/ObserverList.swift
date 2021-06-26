@@ -24,4 +24,3 @@ private final class Observer<T> {
 		self.observer = observer
 	}
 }
-

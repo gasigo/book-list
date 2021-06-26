@@ -9,8 +9,8 @@ public final class NavigationPushingContext: CancelableNavigableContext {
 
 	public init(navigationController: ObservableNavigationController, dismissed: @escaping () -> Void) {
 		self.navigationController = navigationController
-		self.dismissalCallback = dismissed
-		self.animated = true
+		dismissalCallback = dismissed
+		animated = true
 	}
 
 	public convenience init(context: NavigableContext, dismissed: @escaping () -> Void = {}) {
@@ -37,7 +37,7 @@ public final class NavigationPushingContext: CancelableNavigableContext {
 		}
 		var appeared = false
 		navigationController.observeStackChanges(context: self) { [weak view, weak self] controller in
-			if !controller.viewControllers.contains(where: { $0 == view }) && appeared {
+			if !controller.viewControllers.contains(where: { $0 == view }), appeared {
 				let callback = self?.dismissalCallback
 				self?.dismissalCallback = nil
 				callback?()
@@ -81,7 +81,7 @@ private extension UINavigationController {
 			return objc_getAssociatedObject(
 				self,
 				&UINavigationController.markedControllerKey
-				) as? UIViewController
+			) as? UIViewController
 		}
 		set {
 			if
@@ -101,4 +101,3 @@ private extension UINavigationController {
 		}
 	}
 }
-
