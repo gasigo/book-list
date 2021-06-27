@@ -2,3 +2,5 @@ targets:
   ToggleCore:
     templates:
       - ModuleFramework
+    dependencies:
+      - target: ToggleUI

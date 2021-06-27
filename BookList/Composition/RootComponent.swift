@@ -21,8 +21,9 @@ struct RootComponentImpl: RootComponent {
 			BooksComponentImpl(
 				parent: self,
 				networkService: NetworkServiceImpl(
-					session: .shared,
-					configuration: $0.networkConfiguration
+					client: URLSession.shared,
+					configuration: $0.networkConfiguration,
+					decoder: ResponseDecoderImpl()
 				),
 				presentationContext: $0.presentationContext
 			)
