@@ -5,10 +5,10 @@ import ToggleUI
 final class RootRouter: AbstractRouter<RootComponent>, RootRouting {
 	func routeToHome(configuration: NetworkConfiguration) {
 		detachAll()
-		let rootContext = WindowRootPresentationContext(window: component.window)
-		let context = NavigationEmbeddingContext(embeddedContext: rootContext)
 
 		DispatchQueue.main.async {
+			let rootContext = WindowRootPresentationContext(window: self.component.window)
+			let context = NavigationEmbeddingContext(embeddedContext: rootContext)
 			let booksRouter = self.component.booksBuilder.build(
 				args: BooksArgs(presentationContext: context, networkConfiguration: configuration)
 			)

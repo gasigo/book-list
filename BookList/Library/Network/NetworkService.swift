@@ -2,66 +2,60 @@ import Foundation
 import ToggleFoundation
 
 protocol NetworkService {
+	/// Creates a Task to retrieve the contents of the specified url and return a Promise of the specified type.
 	func request<T: Decodable>(request: Request, resposeType: T.Type) -> Promise<T>
+
+	/// Creates a Task to retrieve the contents of the specified url and return a Response of the specified type.
+	/// The created task is resumed by default.
+	func request<T: Decodable>(request: Request, resposeType: T.Type) -> (task: Task, response: Promise<T>)
+}
+
+extension NetworkService {
+	func request<T: Decodable>(request: Request, resposeType: T.Type) -> Promise<T> {
+		self.request(request: request, resposeType: resposeType).response
+	}
 }
 
 struct NetworkServiceImpl: NetworkService {
-	private let session: URLSession
+	private let client: HTTPClient
 	private let configuration: NetworkConfiguration
+	private let decoder: ResponseDecoder
 
-	init(session: URLSession, configuration: NetworkConfiguration) {
-		self.session = session
+	init(client: HTTPClient, configuration: NetworkConfiguration, decoder: ResponseDecoder) {
+		self.client = client
 		self.configuration = configuration
+		self.decoder = decoder
 	}
 
-	func request<T: Decodable>(request: Request, resposeType: T.Type) -> Promise<T> {
-		guard let url = makeURL(request) else {
-			return Promise(error: CustomError.invalidURL)
+	func request<T: Decodable>(request: Request, resposeType: T.Type) -> (task: Task, response: Promise<T>) {
+		guard let httpRequest = request.toURLRequest(configuration: configuration) else {
+			return (EmptyTask(), Promise(error: CustomError.invalidRequest))
 		}
 
-		var httpRequest = URLRequest(url: url)
-		httpRequest.httpMethod = request.method.rawValue
-
-		return Promise { success, failure in
-			session.dataTask(with: httpRequest) { data, response, error in
-				switch (data, error) {
-				case let (_, .some(error)):
-					failure(error)
-				case let (.some(date), .none):
-					guard let response = self.decode(data: date, to: resposeType) else {
-						failure(CustomError.unableToSerialize)
-						return
-					}
-
-					success(response)
-				default:
-					failure(CustomError.requestFailed)
+		let response: WritablePromise<T> = WritablePromise.pending()
+		let task = client.execute(request: httpRequest) { data, request, error in
+			switch (data, error) {
+			case let (_, .some(error)):
+				response.reject(error: error)
+			case let (.some(date), .none):
+				guard let data = self.decoder.decode(data: date, to: resposeType) else {
+					response.reject(error: CustomError.unableToSerialize)
+					return
 				}
 
-			}.resume()
+				response.fulfill(value: data)
+			default:
+				response.reject(error: CustomError.requestFailed)
+			}
+
 		}
-	}
+		task.resume()
 
-	private func decode<T: Decodable>(data: Data, to type: T.Type) -> T? {
-		do {
-			return try JSONDecoder().decode(type, from: data)
-		} catch {
-			print(error)
-		}
-
-		return nil
-	}
-
-	private func makeURL(_ request: Request) -> URL? {
-		var baseURL = URLComponents(string: configuration.baseURL + request.path)
-		baseURL?.queryItems =
-			[URLQueryItem(name: "api-key", value: configuration.apiKey)]
-			+ request.queryParameters.map { URLQueryItem(name: $0.key, value: $0.value) }
-		return baseURL?.url
+		return (task: task, response: response.asPromise())
 	}
 }
 
-private extension CustomError {
+extension CustomError {
 	static var requestFailed: CustomError {
 		CustomError(message: "Couldn't complete request")
 	}
@@ -70,7 +64,7 @@ private extension CustomError {
 		CustomError(message: "Couldn't serialize server response")
 	}
 
-	static var invalidURL: CustomError {
-		CustomError(message: "The request URL provided was invalid")
+	static var invalidRequest: CustomError {
+		CustomError(message: "The request provided was invalid")
 	}
 }

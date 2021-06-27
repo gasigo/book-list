@@ -1,11 +1,12 @@
 import UIKit
 
 public struct NavigationEmbeddingContext: NavigableContext {
-	public let navigationController = ObservableNavigationController()
+	public let navigationController: ObservableNavigationController
 	private let embeddedContext: PresentationContext
 
 	public init(embeddedContext: PresentationContext) {
 		self.embeddedContext = embeddedContext
+		self.navigationController = ObservableNavigationController()
 	}
 
 	public func present(_ view: UIViewController) {
