@@ -10,3 +10,5 @@ targets:
       - target: ToggleFoundation
       - target: ToggleUI
       - target: ToggleCore
+    testTargets:
+      - BookListTests

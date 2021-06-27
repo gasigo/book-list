@@ -6,10 +6,13 @@ jobs:
   build:
     runs-on: macOS-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: List available Xcode versions
-      run: ls /Applications | grep Xcode
-    - name: Select Xcode
-      run: sudo xcode-select -switch /Applications/Xcode_12.5.app && /usr/bin/xcodebuild -version
-    - name: Run unit tests
-      run: xcodebuild test -scheme BookList.xcodeproj -destination 'platform=iOS Simulator,name=iPhone 12,OS=14.2' | xcpretty && exit ${PIPESTATUS[0]}
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install Xcodegen
+      uses: Cyberbeni/install-swift-tool@v2
+      with:
+        url: https://github.com/yonaskolb/XcodeGen
+    - name: Generate Project
+      run: xcodegen generate
+    - name: Test
+      run: xcodebuild clean test -project BookList.xcodeproj -scheme BookList -destination "platform=iOS Simulator,name=iPhone 12"
