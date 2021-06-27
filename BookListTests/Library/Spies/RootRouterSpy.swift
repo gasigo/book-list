@@ -1,3 +1,4 @@
+import ToggleFoundation
 @testable import BookList
 
 final class RootRouterSpy: RootRouting, Spy {
@@ -21,6 +22,8 @@ final class RootRouterSpy: RootRouting, Spy {
 		routeToErrorCounter += 1
 		routeToErrorCapturedError = error
 	}
+
+	func routeToDebugMenu() {}
 
 	func reset() {
 		routeToHomeCounter = 0
