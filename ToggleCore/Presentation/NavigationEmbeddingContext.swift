@@ -6,7 +6,7 @@ public struct NavigationEmbeddingContext: NavigableContext {
 
 	public init(embeddedContext: PresentationContext) {
 		self.embeddedContext = embeddedContext
-		self.navigationController = ObservableNavigationController()
+		navigationController = ObservableNavigationController()
 	}
 
 	public func present(_ view: UIViewController) {

@@ -10,20 +10,33 @@ enum HTTPMethod: String {
 protocol Request {
 	var method: HTTPMethod { get }
 	var path: String { get }
-	var queryParameters: [String: String] { get }
+	var queryParameters: [String: String]? { get }
+	var body: [String: AnyHashable]? { get }
 }
 
 extension Request {
 	func toURLRequest(configuration: NetworkConfiguration) -> URLRequest? {
 		guard let url = makeURL(configuration: configuration) else { return nil }
-		return URLRequest(url: url).set(httpMethod: method.rawValue)
+
+		let request = URLRequest(url: url).set(httpMethod: method.rawValue)
+
+		switch method {
+		case .post, .put, .delete:
+			return request.set(httpBody: body ?? [:])
+		case .get:
+			return request
+		}
 	}
 
 	private func makeURL(configuration: NetworkConfiguration) -> URL? {
 		var baseURL = URLComponents(string: configuration.baseURL + path)
-		baseURL?.queryItems =
-			[URLQueryItem(name: "api-key", value: configuration.apiKey)]
-			+ queryParameters.map { URLQueryItem(name: $0.key, value: $0.value) }
+
+		if let parameters = queryParameters {
+			baseURL?.queryItems =
+				[URLQueryItem(name: "api-key", value: configuration.apiKey)]
+				+ parameters.map { URLQueryItem(name: $0.key, value: $0.value) }
+		}
+
 		return baseURL?.url
 	}
 }
@@ -32,6 +45,12 @@ private extension URLRequest {
 	func set(httpMethod: String) -> Self {
 		var request = self
 		request.httpMethod = httpMethod
+		return request
+	}
+
+	func set(httpBody: [String: AnyHashable]) -> Self {
+		var request = self
+		request.httpBody = try? JSONSerialization.data(withJSONObject: httpBody, options: .prettyPrinted)
 		return request
 	}
 }

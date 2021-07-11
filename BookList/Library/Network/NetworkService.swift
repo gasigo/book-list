@@ -47,7 +47,6 @@ struct NetworkServiceImpl: NetworkService {
 			default:
 				response.reject(error: CustomError.requestFailed)
 			}
-
 		}
 		task.resume()
 

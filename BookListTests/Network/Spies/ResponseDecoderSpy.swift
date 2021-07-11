@@ -6,7 +6,7 @@ final class ResponseDecoderSpy: ResponseDecoder {
 	var capturedData: Data?
 	var capturedType: Any?
 	var response: Any?
-	func decode<T>(data: Data, to type: T.Type) -> T? where T : Decodable {
+	func decode<T>(data: Data, to type: T.Type) -> T? where T: Decodable {
 		decodeCounter += 1
 		capturedData = data
 		capturedType = type

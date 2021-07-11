@@ -1,7 +1,8 @@
 @testable import BookList
 
 struct DummyRequest: Request {
-	var method: HTTPMethod = .get
-	var path: String = ""
-	var queryParameters: [String : String] = [:]
+	let method: HTTPMethod
+	let path: String
+	let queryParameters: [String: String]?
+	let body: [String : AnyHashable]?
 }
