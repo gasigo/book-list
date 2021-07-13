@@ -4,7 +4,7 @@ final class RequestBuilder {
 	private(set) var method: HTTPMethod = .get
 	private(set) var path: String = ""
 	private(set) var queryParameters: [String: String] = [:]
-	private(set) var body: [String : AnyHashable]? = [:]
+	private(set) var body: [String: AnyHashable]? = [:]
 
 	func setMethod(_ method: HTTPMethod) -> Self {
 		self.method = method
@@ -21,7 +21,7 @@ final class RequestBuilder {
 		return self
 	}
 
-	func setBody(_ body: [String : AnyHashable]) -> Self {
+	func setBody(_ body: [String: AnyHashable]) -> Self {
 		self.body = body
 		return self
 	}

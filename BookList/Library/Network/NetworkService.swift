@@ -29,7 +29,7 @@ struct NetworkServiceImpl: NetworkService {
 
 	func request<T: Decodable>(request: Request, resposeType: T.Type) -> (task: Task, response: Promise<T>) {
 		guard let httpRequest = request.toURLRequest(configuration: configuration) else {
-			return (EmptyTask(), Promise(error: CustomError.invalidRequest))
+			return (EmptyTask(), Promise(error: CustomError.NetworkService.invalidRequest))
 		}
 
 		let response: WritablePromise<T> = WritablePromise.pending()
@@ -39,13 +39,13 @@ struct NetworkServiceImpl: NetworkService {
 				response.reject(error: error)
 			case let (.some(date), .none):
 				guard let data = self.decoder.decode(data: date, to: resposeType) else {
-					response.reject(error: CustomError.unableToSerialize)
+					response.reject(error: CustomError.NetworkService.unableToSerialize)
 					return
 				}
 
 				response.fulfill(value: data)
 			default:
-				response.reject(error: CustomError.requestFailed)
+				response.reject(error: CustomError.NetworkService.requestFailed)
 			}
 		}
 		task.resume()
@@ -55,15 +55,17 @@ struct NetworkServiceImpl: NetworkService {
 }
 
 extension CustomError {
-	static var requestFailed: CustomError {
-		CustomError(message: "Couldn't complete request")
-	}
+	enum NetworkService {
+		static var requestFailed: CustomError {
+			CustomError(message: "Couldn't complete request")
+		}
 
-	static var unableToSerialize: CustomError {
-		CustomError(message: "Couldn't serialize server response")
-	}
+		static var unableToSerialize: CustomError {
+			CustomError(message: "Couldn't serialize server response")
+		}
 
-	static var invalidRequest: CustomError {
-		CustomError(message: "The request provided was invalid")
+		static var invalidRequest: CustomError {
+			CustomError(message: "The request provided was invalid")
+		}
 	}
 }
