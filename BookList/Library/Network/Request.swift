@@ -21,7 +21,7 @@ extension Request {
 		let request = URLRequest(url: url).set(httpMethod: method.rawValue)
 
 		switch method {
-		case .post, .put, .delete:
+		case .delete, .post, .put:
 			return request.set(httpBody: body ?? [:])
 		case .get:
 			return request

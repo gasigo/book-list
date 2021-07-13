@@ -35,7 +35,7 @@ extension NetworkServiceTests {
 		let (_, promise) = sut.request(request: dummyRequest, resposeType: String.self)
 
 		// then
-		promise.fulfill(expectation: expectation, if: CustomError.invalidRequest)
+		promise.fulfill(expectation: expectation, if: CustomError.NetworkService.invalidRequest)
 		wait(for: [expectation], timeout: 0.5)
 	}
 
@@ -69,7 +69,7 @@ extension NetworkServiceTests {
 		let (_, promise) = sut.request(request: dummyRequest, resposeType: String.self)
 
 		// then
-		promise.fulfill(expectation: expectation, if: CustomError.unableToSerialize)
+		promise.fulfill(expectation: expectation, if: CustomError.NetworkService.unableToSerialize)
 		XCTAssertEqual(httpClientSpy.executeCounter, 1)
 		XCTAssertEqual(taskSpy.resumeCounter, 1)
 		XCTAssertEqual(responseDecoderSpy.decodeCounter, 1)

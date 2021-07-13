@@ -4,5 +4,5 @@ struct DummyRequest: Request {
 	let method: HTTPMethod
 	let path: String
 	let queryParameters: [String: String]?
-	let body: [String : AnyHashable]?
+	let body: [String: AnyHashable]?
 }
