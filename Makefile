@@ -4,3 +4,7 @@ export_tree:
 	chmod +x DependencyTreeExporter.swift
 	./DependencyTreeExporter.swift
 
+.PHONY: xcodegen
+xcodegen:
+	@echo Generating Xcode Project
+	xcodegen generate
